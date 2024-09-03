@@ -47,6 +47,10 @@ const paths = {
       dir: "./dist/assets/js",
       files: "./dist/assets/js",
     },
+    img: {
+      dir: "./dist/assets/images",
+      files: "./dist/assets/images/**/*",
+    },
   },
   src: {
     base: {
@@ -206,6 +210,12 @@ gulp.task("clean:dist", function (callback) {
   callback();
 });
 
+gulp.task("images", function () {
+  return gulp
+    .src(paths.src.img.files, { encoding: false })
+    .pipe(gulp.dest(paths.dist.img.dir));
+});
+
 gulp.task("copy:all", function () {
   return gulp
     .src([
@@ -218,6 +228,7 @@ gulp.task("copy:all", function () {
       "!" + paths.src.js.files,
       "!" + paths.src.js.main,
       "!" + paths.src.html.files,
+      "!" + paths.src.img.files,
     ])
     .pipe(gulp.dest(paths.dist.base.dir));
 });
@@ -270,7 +281,8 @@ gulp.task(
       "icons",
       "js",
       "jsPages",
-      "html"
+      "html",
+      "images"
     ),
     gulp.parallel("browsersync", "watch")
   )
