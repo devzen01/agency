@@ -51,6 +51,10 @@ const paths = {
       dir: "./dist/assets/images",
       files: "./dist/assets/images/**/*",
     },
+    fonts: {
+      dir: "./dist/assets/fonts",
+      files: "./dist/assets/fonts",
+    },
   },
   src: {
     base: {
@@ -84,6 +88,10 @@ const paths = {
       files: "./src/assets/scss/**/*",
       main: "./src/assets/scss/*.scss",
       icon: "./src/assets/scss/icons.scss",
+    },
+    fonts: {
+      dir: "./src/assets/fonts",
+      files: "./src/assets/fonts",
     },
   },
 };
@@ -122,6 +130,14 @@ gulp.task("js", function () {
       .src(paths.src.js.main)
       // .pipe(uglify())
       .pipe(gulp.dest(paths.dist.js.dir))
+  );
+});
+gulp.task("fonts", function () {
+  return (
+    gulp
+      .src(paths.src.fonts.files, { encoding: true })
+      // .pipe(uglify())
+      .pipe(gulp.dest(paths.dist.fonts.dir))
   );
 });
 
@@ -229,6 +245,7 @@ gulp.task("copy:all", function () {
       "!" + paths.src.js.main,
       "!" + paths.src.html.files,
       "!" + paths.src.img.files,
+      "!" + paths.src.fonts.files,
     ])
     .pipe(gulp.dest(paths.dist.base.dir));
 });
@@ -282,7 +299,8 @@ gulp.task(
       "js",
       "jsPages",
       "html",
-      "images"
+      "images",
+      "fonts"
     ),
     gulp.parallel("browsersync", "watch")
   )
