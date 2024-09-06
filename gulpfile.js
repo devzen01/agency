@@ -61,13 +61,9 @@ const paths = {
       dir: "./src",
       files: "./src/**/*",
     },
-    css: {
-      dir: "./src/assets/css",
-      files: "./src/assets/css/**/*",
-    },
-    html: {
-      dir: "./src",
-      files: "./src/**/*.html",
+    fonts: {
+      dir: "./src/assets/fonts",
+      files: "./src/assets/fonts",
     },
     img: {
       dir: "./src/assets/images",
@@ -75,23 +71,20 @@ const paths = {
     },
     js: {
       dir: "./src/assets/js",
-      pages: "./src/assets/js",
-      files: "./src/assets/js",
-      main: "./src/assets/js/*.js",
+      files: "./src/assets/js/*.js",
+    },
+    scss: {
+      dir: "./src/assets/scss",
+      files: "./src/assets/scss/**/*.scss",
+      all: "./src/assets/scss/**/*",
+    },
+    html: {
+      dir: "./src",
+      files: "./src/**/*.html",
     },
     partials: {
       dir: "./src/partials",
       files: "./src/partials/**/*",
-    },
-    scss: {
-      dir: "./src/assets/scss",
-      files: "./src/assets/scss/**/*",
-      main: "./src/assets/scss/*.scss",
-      icon: "./src/assets/scss/icons.scss",
-    },
-    fonts: {
-      dir: "./src/assets/fonts",
-      files: "./src/assets/fonts",
     },
   },
 };
@@ -111,43 +104,34 @@ gulp.task("browsersyncReload", function (callback) {
 });
 
 gulp.task("watch", function () {
-  gulp.watch(
-    [paths.src.scss.files, "!" + paths.src.scss.icon],
-    gulp.series("scss", "browsersyncReload")
-  );
-  gulp.watch(paths.src.scss.icon, gulp.series("icons", "browsersyncReload"));
-  gulp.watch([paths.src.js.dir], gulp.series("js", "browsersyncReload"));
-  gulp.watch([paths.src.js.pages], gulp.series("jsPages", "browsersyncReload"));
+  gulp.watch([paths.src.img.files], gulp.series("images", "browsersyncReload"));
+  gulp.watch([paths.src.js.files], gulp.series("js", "browsersyncReload"));
+  gulp.watch([paths.src.scss.files], gulp.series("scss", "browsersyncReload"));
   gulp.watch(
     [paths.src.html.files, paths.src.partials.files],
     gulp.series(["fileinclude", "scss"], "browsersyncReload")
   );
 });
 
-gulp.task("js", function () {
-  return (
-    gulp
-      .src(paths.src.js.main)
-      // .pipe(uglify())
-      .pipe(gulp.dest(paths.dist.js.dir))
-  );
-});
 gulp.task("fonts", function () {
-  return (
-    gulp
-      .src(paths.src.fonts.files, { encoding: true })
-      // .pipe(uglify())
-      .pipe(gulp.dest(paths.dist.fonts.dir))
-  );
+  return gulp
+    .src(paths.src.fonts.files, { encoding: true })
+    .pipe(gulp.dest(paths.dist.fonts.dir));
 });
 
-gulp.task("jsPages", function () {
+gulp.task("js", function () {
   return (
     gulp
       .src(paths.src.js.files)
       // .pipe(uglify())
-      .pipe(gulp.dest(paths.dist.js.files))
+      .pipe(gulp.dest(paths.dist.js.dir))
   );
+});
+
+gulp.task("images", function () {
+  return gulp
+    .src(paths.src.img.files, { encoding: false })
+    .pipe(gulp.dest(paths.dist.img.dir));
 });
 
 const cssOptions = {
@@ -160,7 +144,7 @@ gulp.task("scss", function () {
   // generate tailwind
   return (
     gulp
-      .src([paths.src.scss.main, "!" + paths.src.scss.icon])
+      .src(paths.src.scss.files)
       .pipe(sourcemaps.init())
       .pipe(sass().on("error", sass.logError))
 
@@ -168,6 +152,7 @@ gulp.task("scss", function () {
       .pipe(gulp.dest(paths.dist.css.dir))
       // .pipe(cssnano({ svgo: false }))
       .on("data", function (file) {
+        console.log("------------", file.basename, file.path);
         const buferFile = new cleanCSS(cssOptions).minify(file.contents);
         return (file.contents = Buffer.from(buferFile.styles));
       })
@@ -179,23 +164,6 @@ gulp.task("scss", function () {
       .pipe(sourcemaps.write("./"))
       .pipe(gulp.dest(paths.dist.css.dir))
   );
-});
-
-gulp.task("icons", function () {
-  return gulp
-    .src(paths.src.scss.icon, { allowEmpty: true })
-    .pipe(sass().on("error", sass.logError))
-    .pipe(gulp.dest(paths.dist.css.dir))
-    .on("data", function (file) {
-      const buferFile = new cleanCSS(cssOptions).minify(file.contents);
-      return (file.contents = Buffer.from(buferFile.styles));
-    })
-    .pipe(
-      rename({
-        suffix: ".min",
-      })
-    )
-    .pipe(gulp.dest(paths.dist.css.dir));
 });
 
 gulp.task("fileinclude", function () {
@@ -226,12 +194,6 @@ gulp.task("clean:dist", function (callback) {
   callback();
 });
 
-gulp.task("images", function () {
-  return gulp
-    .src(paths.src.img.files, { encoding: false })
-    .pipe(gulp.dest(paths.dist.img.dir));
-});
-
 gulp.task("copy:all", function () {
   return gulp
     .src([
@@ -239,12 +201,14 @@ gulp.task("copy:all", function () {
       "!" + paths.src.partials.dir,
       "!" + paths.src.partials.files,
       "!" + paths.src.scss.dir,
-      "!" + paths.src.scss.files,
+      "!" + paths.src.scss.all,
       "!" + paths.src.js.dir,
       "!" + paths.src.js.files,
-      "!" + paths.src.js.main,
+      "!" + paths.src.html.dir,
       "!" + paths.src.html.files,
+      "!" + paths.src.img.dir,
       "!" + paths.src.img.files,
+      "!" + paths.src.fonts.dir,
       "!" + paths.src.fonts.files,
     ])
     .pipe(gulp.dest(paths.dist.base.dir));
@@ -294,13 +258,11 @@ gulp.task(
       "copy:all",
       "copy:libs",
       "fileinclude",
+      "fonts",
       "scss",
-      "icons",
       "js",
-      "jsPages",
       "html",
-      "images",
-      "fonts"
+      "images"
     ),
     gulp.parallel("browsersync", "watch")
   )
@@ -315,10 +277,10 @@ gulp.task(
     "copy:all",
     "copy:libs",
     "fileinclude",
+    "fonts",
     "scss",
-    "icons",
     "js",
-    "jsPages",
-    "html"
+    "html",
+    "images"
   )
 );
