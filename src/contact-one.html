@@ -64,8 +64,8 @@
 
           <div class="mt-5">
             <a href="tel:+1-862-201-5656"
-              class="relative inline-block font-semibold tracking-wide align-middle text-base text-center border-none after:content-[''] after:absolute after:h-px after:w-0 hover:after:w-full after:end-0 hover:after:end-auto after:bottom-0 after:start-0 after:duration-500 text-indigo-600 hover:text-indigo-600 after:bg-indigo-600 duration-500 ease-in-out">+1
-              862-201-5656</a>
+              class="relative inline-block font-semibold tracking-wide align-middle text-base text-center border-none after:content-[''] after:absolute after:h-px after:w-0 hover:after:w-full after:end-0 hover:after:end-auto after:bottom-0 after:start-0 after:duration-500 text-indigo-600 hover:text-indigo-600 after:bg-indigo-600 duration-500 ease-in-out">+381
+              67 766 9813</a>
           </div>
         </div>
       </div>
@@ -196,6 +196,35 @@
     </div>
   </div><!--end grid-->
 </div><!--end container-->
+
+<!-- <script>
+  function sendMessage() {
+    const mailArr = [];
+
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const subject = document.getElementById('subject').value;
+    const comment = document.getElementById('comments').value;
+
+    if (name !== '') {
+      const sub = 'subject=' + encodeURIComponent(`${name} - ${subject}`);
+      mailArr.push(sub);
+    }
+
+    if (comment !== '') {
+      const body = 'body=' + encodeURIComponent(comment);
+      mailArr.push(comment);
+    }
+
+    let mailStr = mailArr.join('&');
+
+    if (mailStr !== '') {
+      mailStr = '?' + mailStr;
+    }
+
+    window.open('christian@kalysta.org' + mailStr);
+  }
+</script> -->
 
 @@include("partials/footer/footer.html")
 

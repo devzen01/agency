@@ -47,6 +47,10 @@ const paths = {
       dir: "./dist/assets/js",
       files: "./dist/assets/js",
     },
+    php: {
+      dir: "./dist/assets/php",
+      files: "./dist/assets/php",
+    },
     img: {
       dir: "./dist/assets/images",
       files: "./dist/assets/images/**/*",
@@ -72,6 +76,10 @@ const paths = {
     js: {
       dir: "./src/assets/js",
       files: "./src/assets/js/*.js",
+    },
+    php: {
+      dir: "./src/assets/php",
+      files: "./src/assets/php/*.php",
     },
     scss: {
       dir: "./src/assets/scss",
@@ -106,6 +114,7 @@ gulp.task("browsersyncReload", function (callback) {
 gulp.task("watch", function () {
   gulp.watch([paths.src.img.files], gulp.series("images", "browsersyncReload"));
   gulp.watch([paths.src.js.files], gulp.series("js", "browsersyncReload"));
+  gulp.watch([paths.src.php.files], gulp.series("php", "browsersyncReload"));
   gulp.watch([paths.src.scss.files], gulp.series("scss", "browsersyncReload"));
   gulp.watch(
     [paths.src.html.files, paths.src.partials.files],
@@ -126,6 +135,10 @@ gulp.task("js", function () {
       // .pipe(uglify())
       .pipe(gulp.dest(paths.dist.js.dir))
   );
+});
+
+gulp.task("php", function () {
+  return gulp.src(paths.src.php.files).pipe(gulp.dest(paths.dist.php.dir));
 });
 
 gulp.task("images", function () {
@@ -204,6 +217,8 @@ gulp.task("copy:all", function () {
       "!" + paths.src.scss.all,
       "!" + paths.src.js.dir,
       "!" + paths.src.js.files,
+      "!" + paths.src.php.dir,
+      "!" + paths.src.php.files,
       "!" + paths.src.html.dir,
       "!" + paths.src.html.files,
       "!" + paths.src.img.dir,
@@ -244,6 +259,7 @@ gulp.task("html", function () {
     .pipe(useref())
     .pipe(cached())
     .pipe(gulpif("*.js", uglify()))
+    .pipe(gulpif("*.php", uglify()))
     .pipe(gulpif("*.css", cssnano({ svgo: false })))
     .pipe(gulp.dest(paths.dist.base.dir));
 });
@@ -261,6 +277,7 @@ gulp.task(
       "fonts",
       "scss",
       "js",
+      "php",
       "html",
       "images"
     ),
