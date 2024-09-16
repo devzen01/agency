@@ -635,9 +635,6 @@ video {
 .inset-0{
   inset: 0px !important;
 }
-.-bottom-52{
-  bottom: -13rem !important;
-}
 .-bottom-7{
   bottom: -1.75rem !important;
 }
@@ -683,17 +680,11 @@ video {
 .start-0{
   inset-inline-start: 0px !important;
 }
-.start-2{
-  inset-inline-start: 0.5rem !important;
-}
 .start-3{
   inset-inline-start: 0.75rem !important;
 }
 .start-4{
   inset-inline-start: 1rem !important;
-}
-.start-5{
-  inset-inline-start: 1.25rem !important;
 }
 .top-1\/2{
   top: 50% !important;
@@ -1029,12 +1020,6 @@ video {
   -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
           transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
 }
-.scale-0{
-  --tw-scale-x: 0 !important;
-  --tw-scale-y: 0 !important;
-  -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
-          transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
-}
 .scale-\[2\.0\]{
   --tw-scale-x: 2.0 !important;
   --tw-scale-y: 2.0 !important;
@@ -1360,9 +1345,6 @@ video {
 }
 .p-1{
   padding: 0.25rem !important;
-}
-.p-3{
-  padding: 0.75rem !important;
 }
 .p-4{
   padding: 1rem !important;
@@ -3848,19 +3830,8 @@ html[dir=rtl] .tns-visually-hidden {
           box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000) !important;
 }
 
-.group:hover .group-hover\:bottom-2{
-  bottom: 0.5rem !important;
-}
-
 .group:hover .group-hover\:inline-block{
   display: inline-block !important;
-}
-
-.group:hover .group-hover\:scale-100{
-  --tw-scale-x: 1 !important;
-  --tw-scale-y: 1 !important;
-  -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
-          transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
 }
 
 .group:hover .group-hover\:scale-105{
