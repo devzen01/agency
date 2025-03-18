@@ -882,13 +882,13 @@ video {
   width: 5rem !important;
   height: 5rem !important;
 }
-.size-24{
-  width: 6rem !important;
-  height: 6rem !important;
-}
 .size-32{
   width: 8rem !important;
   height: 8rem !important;
+}
+.size-36{
+  width: 9rem !important;
+  height: 9rem !important;
 }
 .size-4{
   width: 1rem !important;
@@ -935,6 +935,9 @@ video {
 }
 .h-9{
   height: 2.25rem !important;
+}
+.h-\[300px\]{
+  height: 300px !important;
 }
 .h-\[500px\]{
   height: 500px !important;
